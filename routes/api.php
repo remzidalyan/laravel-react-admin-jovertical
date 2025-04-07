@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::namespace('Api')->name('api.')->group(function () {
     Route::namespace('V1')->name('v1.')->prefix('v1')->group(function () {
         Route::namespace('Auth')->name('auth.')->prefix('auth')->group(function () {
@@ -47,6 +49,12 @@ Route::namespace('Api')->name('api.')->group(function () {
                     Route::post('/', 'UsersController@storeAvatar')->name('store');
                     Route::delete('/', 'UsersController@destroyAvatar')->name('destroy');
                 });
+            });
+
+            Route::get('tasks/all', 'TaskCTRL@getAll')->name('tasks.all');
+            Route::resource('tasks', 'TaskCTRL', ['except' => ['edit', 'create']]);
+            Route::prefix('tasks')->name('tasks.')->group(function () {
+                Route::patch('{task}/status-change', 'TaskCTRL@statusChange')->name('statusChange');
             });
         });
     });

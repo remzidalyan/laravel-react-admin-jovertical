@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 import {
     Divider,
     Drawer,
-    IconButton,
     Hidden,
+    IconButton,
     List,
     ListItem,
     ListItemIcon,
@@ -17,6 +17,7 @@ import {
 } from '@material-ui/core';
 
 import {
+    Assignment as TaskIcon,
     ChevronLeft as ChevronLeftIcon,
     ChevronRight as ChevronRightIcon,
     Dashboard as DashboardIcon,
@@ -24,6 +25,7 @@ import {
     People as PeopleIcon,
     Security as SecurityIcon,
     ShowChart as ShowChartIcon,
+    ViewColumn as ViewColumnIcon,
 } from '@material-ui/icons';
 
 import { APP } from '../../../config';
@@ -99,6 +101,43 @@ function Sidebar(props) {
                         </Tooltip>
                     ),
                     path: null,
+                },
+            ],
+        },
+
+        {
+            name: Lang.get('navigation.task-management'),
+            id: 'task-management',
+            links: [
+                {
+                    name: Lang.get('navigation.tasks'),
+                    icon: (
+                        <Tooltip
+                            title={
+                                minimized ? Lang.get('navigation.tasks') : ''
+                            }
+                        >
+                            <TaskIcon />
+                        </Tooltip>
+                    ),
+                    path: NavigationUtils.route(
+                        'backoffice.task-management.tasks.index',
+                    ),
+                },
+                {
+                    name: Lang.get('navigation.kanban'),
+                    icon: (
+                        <Tooltip
+                            title={
+                                minimized ? Lang.get('navigation.kanban') : ''
+                            }
+                        >
+                            <ViewColumnIcon />
+                        </Tooltip>
+                    ),
+                    path: NavigationUtils.route(
+                        'backoffice.task-management.tasks.kanban',
+                    ),
                 },
             ],
         },

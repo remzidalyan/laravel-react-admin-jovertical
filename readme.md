@@ -1,131 +1,120 @@
-# About Laravel React Admin
+# Laravel React Task Management System
 
-This is a scaffolding project that comes with authentication &
-users CRUD. It is a Single Page Application (SPA) built on top of [React.js](https://reactjs.org)
-in the frontend & [Laravel](https://laravel.com) in the backend.
+## Overview
 
-<p align="center">
-    <a href="https://github.com/palonponjovertlota/laravel-react-admin/actions" title="Actions">
-        <img src="https://github.com/palonponjovertlota/laravel-react-admin/workflows/Actions/badge.svg" alt="Build Status">
-    </a>
-    <a href="https://github.com/palonponjovertlota/laravel-react-admin/releases" title="Releases">
-        <img src="https://img.shields.io/github/v/release/palonponjovertlota/laravel-react-admin?label=Release" alt="Latest Version">
-    </a>
-    <a href="https://github.com/palonponjovertlota/laravel-react-admin/blob/master/LICENSE" title="License">
-        <img src="https://img.shields.io/github/license/palonponjovertlota/laravel-react-admin?label=License" alt="License">
-    </a>
-</p>
+This system provides a comprehensive task management solution with:
 
-## Screenshots
+- Dashboard for task operations (CRUD)
+- Task creation/editing forms
+- Kanban board visualization
+- Drag-and-drop functionality
+- Real-time notifications
+- Automated task scheduling
 
-[![Laravel React Admin](https://user-images.githubusercontent.com/42484695/65893634-d9534700-e3da-11e9-84a1-20de8c6b4ced.png)](https://github.com/palonponjovertlota/laravel-react-admin)
+## Key Features
 
-[![Laravel React Admin](https://user-images.githubusercontent.com/42484695/65893636-d9534700-e3da-11e9-91c1-0d098a5e4301.png)](https://github.com/palonponjovertlota/laravel-react-admin)
+### 1. Task Management Module
 
-## Features
+**Components:**
 
--   Progressive Web App (PWA)
--   Supports multiple locales
--   Stateless authentication system
--   Datatables with server-side pagination, sorting & dynamic filtering
--   Undo common actions
--   [Docker](https://www.docker.com) ready
--   [Image Intervention](http://image.intervention.io/) integration for image uploads
--   Drag & drop file uploads.
--   Supports dark mode.
+- Task creation form (title, description, assignee, dates)
+- Task listing with pagination
+- Detailed task view
+- Edit/Delete functionality
 
-## Preview
+**Technical Implementation:**
 
-You can check out the [live preview](https://laravel-react-admin.herokuapp.com)
+- Laravel REST API backend
+- React frontend with Axios for API calls
+- Form validation on both client and server sides
+- Soft delete functionality with recovery option
 
-## Quick Start
+### 2. Kanban Board
 
-1. Clone the repo `git clone https://github.com/palonponjovertlota/laravel-react-admin.git`.
-2. Go to your project folder from your terminal.
-3. Run: `composer install` and `npm install` to install application dependencies.
-4. Copy the `env.example` file into a `.env` file and then configure based on your local setup.
-5. Installation is done, you can now run: `php artisan serve` then `npm run watch`.
-6. The project will run in this URL: (http://localhost:3000).
+**Functionality:**
 
-## Using Docker
+- Visual status tracking (Todo/In Progress/Done)
+- Drag-and-drop status updates
+- Real-time board refresh
+- Column customization
 
-If you prefer [Docker](https://www.docker.com), there is a working setup provided to get you started in no time.
-Check your local setup to make sure that running this app in docker will work correctly:
+**Technical Implementation:**
 
-### For Unix Based Operating Systems, Give It Proper Permissions
+- React Beautiful DnD library
+- Custom status transition logic
+- Optimistic UI updates
+- WebSocket integration for real-time sync
 
-If you are a **Linux** / **Mac** user, make sure to give the application proper _file permissions_. The _php-fpm_ image uses `www-data` as its default user:
+### 3. Notification System
 
-```
-cd ~/your_projects_folder
+**Features:**
 
-sudo chown ${USER}:www-data -R laravel-react-admin
-```
+- Email notifications on:
+    - Task assignment
+    - Status changes
 
-### Localhost Should Be Freed
+**Technical Implementation:**
 
-Make sure that the address `127.0.0.1:80` usually `localhost` is available on the _host machine_. It must be assured that **apache2**, **nginx** or any http webserver out there is not running on the _host machine_ to avoid address and port collision.
+- Laravel Notifications
+- Queue workers for async delivery
 
-### Add a custom host
+## Test Cases Overview
 
-To make this app run on **docker** you must add a custom host address pointing to `localhost` or `127.0.0.1`.
+### Task Management
 
-### You are good to go
+| Test Case                 | Objective                                | Verification Steps                                                                                                                                                           |
+|---------------------------|------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **TC-1: Task Creation**   | Verify successful task creation          | 1. Open task creation form<br>2. Fill required fields (title)<br>3. Submit the form<br>4. Verify record creation in database<br>5. Confirm new task appears in the task list |
+| **TC-2: Task Update**     | Ensure proper task editing functionality | 1. Select a task from the list<br>2. Modify title/description/status<br>3. Save changes<br>4. Verify updated details on task view page<br>5. Check database record updates   |
+| **TC-3: Task Deletion**   | Test task removal process                | 1. Select task to delete<br>2. Click delete button<br>3. Confirm deletion dialog<br>4. Verify removal from task list<br>5. Check `deleted_at` timestamp in DB                |
+| **TC-4: Pagination**      | Validate task list navigation            | 1. Create 10+ test tasks<br>2. Set pagination to 5 items/page<br>3. Navigate between pages<br>4. Change "Items per page" value<br>5. Verify filtered results pagination      |
+| **TC-4.1: Task All List** | Ensure all tasks are displayed           | 1. Create 10+ test tasks<br>2. Verify all tasks are displayed on one page<br>3. Check for performance issues with large datasets                                             | 
 
-You can now run the _image_ using the `docker-compose up` and optionally pass the `--build` flag if you intend to build the image. The app can be visited here `http:your_custom_host_address`.
+### Kanban Board
 
-### Installing PHP & NPM dependencies
+| Test Case               | Objective                   | Verification Steps                                                                                                                                                                                  |
+|-------------------------|-----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **TC-5: Drag-and-Drop** | Verify status change via UI | 1. Drag task from "Pending" column<br>2. Drop into "In Progress" column<br>3. Verify visual transition animation<br>4. Confirm status update in database<br>5. Check for status change notification |
 
-In development, do note that all files inside this app is _bind-mounted_ into the container, **docker** will just use the existing directories, in our concern the `vendor` and `node_modules`. Here is an example of running a composer install command: `docker container exec -it laravel-react-admin-php-fpm composer install --no-interaction --no-plugins --no-scripts`.
+### Real-Time Features
 
-### Running Artisan Commands
+| Test Case               | Objective                       | Verification Steps                                                                                                                       |
+|-------------------------|---------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| **TC-6: Notifications** | Test alert system functionality | 1. Change task status<br>2. Check in-app database                                                                                        |
+| **TC-7: Auto Updates**  | Validate scheduled transitions  | 1. Set task start date to future<br>2. Wait for scheduled time<br>3. Verify automatic status change<br>4. Check associated notifications |
 
-You can run any artisan commands directly into the `laravel-react-admin-php-fpm` container. Here is an example of a migration command: `docker container exec -it laravel-react-admin-php-fpm php artisan migrate:fresh --seed`.
+### Performance
 
-### What about Browsersync?
+| Test Case         | Objective                 | Verification Steps                                                                                                               |
+|-------------------|---------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| **TC-8: Caching** | Verify query optimization | 1. Request task list<br>2. Check Redis cache hits<br>3. Verify 60-second cache duration<br>4. Test cache invalidation on updates |
 
-As we are bundling frontend assets with [webpack](https://webpack.js.org/) under the hood, you must specify the custom host address where the application runs in docker so that webpack can proxy that to be able to develop using docker. You can pass a `--env.proxy` flag when running for example the `npm run watch` command: `npm run watch -- --env.proxy=http:laravel-react-admin.test`.
+## API Integration
 
-### Using PhpMyAdmin
+### 📌 API Endpoints
 
-You could use **PhpMyAdmin** to browse your MySql database as it is included in this **Docker** integration. Just add a _Virtual Host_ that points to `127.0.0.1` & the _Domain_ should be the same with your custom host address:
+The following endpoints are used in this module:
 
-```
-// /etc/hosts
+| Method | Endpoint                    | Description                        |
+|--------|-----------------------------|------------------------------------|
+| GET    | `/api/v1/tasks`             | Retrieve paginated task list       |
+| POST   | `/api/v1/tasks`             | Create new task                    |
+| PUT    | `/api/v1/tasks/{id}`        | Update existing task               |
+| DELETE | `/api/v1/tasks/{id}`        | Delete task (with recovery option) |
+| PATCH  | `/api/v1/tasks/{id}/status` | Change task status                 |
+| GET    | `/api/v1/tasks/all`         | Get tasks list                     |
 
-127.0.0.1    phpmyadmin.laravel-react-admin.test
-```
+**Full API Reference**: See detailed documentation in [api-doc.md](./api-doc.md)
 
-You could then visit **PhpMyAdmin** here: phpmyadmin.laravel-react-admin.test
+### Usage Example
 
-## Testing
-
-Run the tests with:
-
-```
-// If you have installed composer globally
-composer test
-
-// This should also work
-./vendor/bin/composer test
-```
-
-## Changelog
-
-Please see [CHANGELOG](https://github.com/palonponjovertlota/laravel-react-admin/blob/master/CHANGELOG.md) for more information on what has changed recently.
-
-## Contributing
-
-Please see [Contributing](https://github.com/palonponjovertlota/laravel-react-admin/blob/master/Contributing.md) for more details.
-
-## Security
-
-If you discover any security-related issues, please email [palonponjovertlota@gmail.com](mailto:palonponjovertlota@gmail.com) instead of using the issue tracker.
-
-## Credits
-
--   [@reeshkeed](https://github.com/reeshkeed) for designing the logo & design ideas.
-
-## License
-
-The MIT License (MIT). Please see [License File](https://github.com/palonponjovertlota/laravel-react-admin/blob/master/LICENSE) for more information.
+```javascript
+// Fetching tasks
+const response = await axios.get('/api/v1/tasks', {
+  params: {
+    perPage: 10,
+  },
+  headers: {
+    'Authorization': `Bearer ${token}`
+  }
+});

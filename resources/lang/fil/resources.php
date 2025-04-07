@@ -15,10 +15,14 @@ return [
     'show' => 'Tingnan ang :name',
     'edit' => 'I-edit ang :name',
     'delete' => 'Burahin ang :name',
+    'restore' => 'Ibalik ang :name',
     'edit_image' => "I-edit ang imahe ng :name",
 
     'delete_confirmation_title' => 'Ikaw ay nagbubura ng isang :name',
     'delete_confirmation_body' => "Kung maituloy, ang :name ay di na mare-recover pa.",
+
+    'restore_confirmation_title' => 'Ikaw ay nagbabalik ng isang :name',
+    'restore_confirmation_body' => "Kung maituloy, ang :name ay mare-recover.",
 
     'fetched' => 'Nakakuha ng :total :name.',
     'not_fetched' => 'Error sa pagkuha ng mga :name!',

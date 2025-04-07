@@ -2,14 +2,14 @@
 
 namespace App;
 
-use App\Traits\HasJWT;
 use App\Contracts\Uploader;
+use App\Traits\HasJWT;
 use App\Traits\UploadsFiles;
-use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject, Uploader
 {
@@ -51,9 +51,9 @@ class User extends Authenticatable implements JWTSubject, Uploader
      *
      * @return string
      */
-    public function getDirectory() : string
+    public function getDirectory(): string
     {
-        return 'users/'.$this->getKey();
+        return 'users/' . $this->getKey();
     }
 
     /**
@@ -61,8 +61,13 @@ class User extends Authenticatable implements JWTSubject, Uploader
      *
      * @return array
      */
-    public function getUploadAttributes() : array
+    public function getUploadAttributes(): array
     {
         return $this->uploadAttributes;
+    }
+
+    public function task_reviewers(): HasMany
+    {
+        return $this->hasMany(TaskReviewer::class);
     }
 }

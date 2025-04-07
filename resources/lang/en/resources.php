@@ -15,10 +15,14 @@ return [
     'show' => 'View :name',
     'edit' => 'Edit :name',
     'delete' => 'Delete :name',
+    'restore' => 'Restore :name',
     'edit_image' => "Edit :name's image",
 
     'delete_confirmation_title' => 'You are deleting a :name',
     'delete_confirmation_body' => "If not undone, the :name won't be recovered anymore.",
+
+    'restore_confirmation_title' => 'You are restoring a :name',
+    'restore_confirmation_body' => "If not undone, the :name will be recovered.",
 
     'fetched' => 'Fetched :total :names.',
     'not_fetched' => 'Error fetching :names!',

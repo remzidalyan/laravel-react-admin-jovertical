@@ -1,6 +1,7 @@
 import { Home } from '../views/__backoffice';
 import * as Settings from '../views/__backoffice/settings';
 import * as Users from '../views/__backoffice/users';
+import * as Tasks from '../views/__backoffice/task-management';
 
 const resources = [
     {
@@ -27,6 +28,36 @@ const resources = [
     return route;
 });
 
+const taskManagementRoutes = [
+    {
+        name: 'tasks.index',
+        path: '/tasks',
+        component: Tasks.List,
+    },
+
+    {
+        name: 'tasks.create',
+        path: '/tasks/create',
+        component: Tasks.Create,
+    },
+
+    {
+        name: 'tasks.edit',
+        path: '/tasks/:id/edit',
+        component: Tasks.Edit,
+    },
+
+    {
+        name: 'tasks.kanban',
+        path: '/tasks/kanban',
+        component: Tasks.Kanban,
+    },
+].map(route => ({
+    ...route,
+    name: `task-management.${route.name}`,
+    path: `/task-management${route.path}`,
+}));
+
 export default [
     {
         name: 'home',
@@ -47,6 +78,7 @@ export default [
     },
 
     ...resources,
+    ...taskManagementRoutes,
 ].map(route => {
     route.name = `backoffice.${route.name}`;
     route.auth = true;

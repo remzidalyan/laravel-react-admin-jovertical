@@ -57,6 +57,9 @@ return [
     'resources' => 'Resources',
     'users' => 'Users',
     'roles' => 'Roles',
+    'task-management' => 'Task Management',
+    'tasks' => 'Tasks',
+    'kanban' => 'Kanban',
 
     'citation' => 'Built with ❤️ by'
 ];
